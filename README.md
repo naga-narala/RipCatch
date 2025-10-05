@@ -1,4 +1,4 @@
-# 🌊 RipCatch - Rip Current Detection System
+# 🌊 RipCatch-v2.0 - Rip Current Detection System
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
@@ -50,7 +50,7 @@ Rip currents are responsible for approximately 100 deaths annually in the United
 ## 🎬 Demo
 
 ### Image Detection
-![Rip Current Detection Demo](Testing/Mixed/RIP1.webp)
+![Rip Current Detection Demo](Demo.mp4)
 *Example: RipCatch detecting rip currents in a beach scene*
 
 ### Video Detection
