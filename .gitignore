@@ -1,0 +1,312 @@
+# =============================================================================
+# RipCatch Project - .gitignore
+# Rip Current Detection System
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Dataset Files (Large Files - Host Externally)
+# -----------------------------------------------------------------------------
+# Raw datasets
+**/Datasets/
+rip-currents.zip
+beach_data.zip
+rip_dataset.zip
+rip_dataset/
+beach_data/
+beach_yolo_format/
+rip-currents/
+test_images/
+
+# Extracted datasets
+**/images/
+**/labels/
+**/train/
+**/valid/
+**/test/
+
+# Dataset YAML (keep template, ignore instances)
+# data.yaml
+
+# -----------------------------------------------------------------------------
+# Model Weights (Large Files - Use Git LFS or External Hosting)
+# -----------------------------------------------------------------------------
+# PyTorch model weights
+*.pt
+*.pth
+**/weights/
+**/checkpoints/
+models/production_training/**/weights/*.pt
+# Keep only references, not actual files
+
+# ONNX exports
+*.onnx
+*.engine
+*.tflite
+*.pb
+*.torchscript
+
+# Model outputs
+**/runs/
+**/results/
+**/predictions/
+
+# -----------------------------------------------------------------------------
+# Video and Large Media Files
+# -----------------------------------------------------------------------------
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.wmv
+*.flv
+# Keep sample videos for documentation if small
+
+# Large images
+**/output_videos/
+**/test_videos/
+**/inference_output/
+
+# -----------------------------------------------------------------------------
+# Python
+# -----------------------------------------------------------------------------
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# C extensions
+*.c
+*.cpp
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# -----------------------------------------------------------------------------
+# Jupyter Notebook
+# -----------------------------------------------------------------------------
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+**/.ipynb_checkpoints/
+
+# Jupyter Notebook outputs (optional - uncomment to ignore cell outputs)
+# *.ipynb
+
+# -----------------------------------------------------------------------------
+# Virtual Environments
+# -----------------------------------------------------------------------------
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv
+.conda/
+
+# -----------------------------------------------------------------------------
+# IDE & Editor Files
+# -----------------------------------------------------------------------------
+# VSCode
+.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Cursor (AI IDE)
+.cursor/
+.cursorrules
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Visual Studio
+.vs/
+
+# -----------------------------------------------------------------------------
+# OS Generated Files
+# -----------------------------------------------------------------------------
+# macOS
+.DS_Store
+.DS_Store?
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# -----------------------------------------------------------------------------
+# Environment & Configuration
+# -----------------------------------------------------------------------------
+.env
+.env.local
+.env.*.local
+*.env
+
+# API keys and secrets
+secrets.yaml
+secrets.json
+credentials.json
+*.pem
+*.key
+
+# -----------------------------------------------------------------------------
+# Logs and Temporary Files
+# -----------------------------------------------------------------------------
+*.log
+logs/
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+
+# Training logs
+**/logs/
+**/tensorboard_logs/
+wandb/
+mlruns/
+
+# -----------------------------------------------------------------------------
+# Documentation (Build Artifacts)
+# -----------------------------------------------------------------------------
+docs/_build/
+docs/.doctrees/
+site/
+
+# Keep markdown documentation
+# *.md
+
+# -----------------------------------------------------------------------------
+# Project-Specific
+# -----------------------------------------------------------------------------
+# Training outputs (keep structure, ignore large files)
+RipCatch-v*/Results/*.mp4
+RipCatch-v*/Results/*.png
+RipCatch-v*/Results/*.jpg
+
+# Temporary test outputs
+Testing/output/
+Testing/results/
+
+# Scratch/experimental files
+scratch/
+experiments/
+playground/
+temp/
+*.draft.*
+
+# Personal notes (optional)
+TODO.md
+NOTES.md
+personal/
+
+# -----------------------------------------------------------------------------
+# Package Manager Files (Keep These)
+# -----------------------------------------------------------------------------
+# pip
+# requirements.txt - KEEP
+# pyproject.toml - KEEP
+
+# Conda
+# environment.yml - KEEP
+
+# -----------------------------------------------------------------------------
+# Git LFS (If Using for Large Files)
+# -----------------------------------------------------------------------------
+# .gitattributes - KEEP if using Git LFS
+
+# -----------------------------------------------------------------------------
+# CI/CD & Cloud
+# -----------------------------------------------------------------------------
+.github/
+.gitlab-ci.yml
+.circleci/
+
+# Docker
+docker-compose.override.yml
+.dockerignore
+
+# -----------------------------------------------------------------------------
+# Keep Important Files (Exceptions)
+# -----------------------------------------------------------------------------
+# Force-keep critical documentation
+!README.md
+!LICENSE
+!CONTRIBUTING.md
+!CHANGELOG.md
+!QUICK_START.md
+!FOLDER_STRUCTURE.md
+
+# Keep sample/demo files (small sizes only)
+!Testing/beach/test_1.jpg
+!Testing/Mixed/RIP1.webp
+
+# Keep configuration templates
+!config_template.yaml
+!.env.example
+
+# =============================================================================
+# End of .gitignore
+# =============================================================================

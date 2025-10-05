@@ -1,0 +1,111 @@
+name: ripcatch
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+
+dependencies:
+  # Python version
+  - python=3.10
+
+  # Core Deep Learning
+  - pytorch>=2.0.0
+  - torchvision>=0.15.0
+  - torchaudio>=2.0.0
+  - pytorch-cuda=11.8  # Change to 12.1 if using newer CUDA
+
+  # Computer Vision
+  - opencv>=4.8.0
+  - pillow>=10.0.0
+
+  # Data Science
+  - numpy>=1.24.0
+  - pandas>=2.0.0
+  - scipy>=1.10.0
+  - scikit-learn>=1.3.0
+  - scikit-image>=0.21.0
+
+  # Visualization
+  - matplotlib>=3.7.0
+  - seaborn>=0.12.0
+
+  # Jupyter
+  - jupyter>=1.0.0
+  - notebook>=7.0.0
+  - ipykernel>=6.25.0
+  - ipywidgets>=8.1.0
+
+  # Utilities
+  - pyyaml>=6.0
+  - tqdm>=4.65.0
+  - psutil>=5.9.0
+
+  # Development Tools (Optional)
+  - black>=23.7.0
+  - flake8>=6.1.0
+  - isort>=5.12.0
+  - pytest>=7.4.0
+
+  # Pip packages (not available in conda)
+  - pip>=23.0
+  - pip:
+    - ultralytics>=8.0.0
+    - albumentations>=1.3.1
+    - plotly>=5.16.0
+    - rich>=13.5.0
+    - onnx>=1.14.0
+    - onnxruntime>=1.15.0
+    - onnxruntime-gpu>=1.15.0
+    - gputil>=1.4.0
+    - imageio>=2.31.0
+    - imageio-ffmpeg>=0.4.9
+
+# ============================================================================
+# Environment Setup Instructions
+# ============================================================================
+#
+# 1. Create environment:
+#    conda env create -f environment.yml
+#
+# 2. Activate environment:
+#    conda activate ripcatch
+#
+# 3. Verify installation:
+#    python -c "import torch; print(f'PyTorch: {torch.__version__}')"
+#    python -c "import torch; print(f'CUDA: {torch.cuda.is_available()}')"
+#    python -c "from ultralytics import YOLO; print('Ultralytics: OK')"
+#
+# 4. Update environment (if needed):
+#    conda env update -f environment.yml --prune
+#
+# 5. Remove environment:
+#    conda deactivate
+#    conda env remove -n ripcatch
+#
+# ============================================================================
+# Hardware Requirements
+# ============================================================================
+#
+# Minimum:
+#   - 8GB RAM
+#   - 10GB disk space
+#   - Python 3.8+
+#
+# Recommended:
+#   - 16GB+ RAM
+#   - NVIDIA GPU with 8GB+ VRAM
+#   - CUDA 11.8 or 12.1
+#   - 50GB disk space (with datasets)
+#
+# ============================================================================
+# Notes
+# ============================================================================
+#
+# - For CPU-only: Remove pytorch-cuda line and use CPU version
+# - For different CUDA versions: Change pytorch-cuda version
+# - For Apple Silicon (M1/M2): Use MPS backend instead of CUDA
+# - For Windows: May need Visual C++ Build Tools for some packages
+#
+# ============================================================================
+
