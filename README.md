@@ -9,6 +9,10 @@
 
 Rip currents are responsible for approximately 100 deaths annually in the United States alone. **RipCatch v2.0** leverages state-of-the-art YOLOv8 computer vision and advanced training techniques to automatically detect rip currents in beach imagery and video streams, providing real-time warnings to beachgoers and lifeguards.
 
+![RipCatch v2.0 Demo](Demo.gif)
+
+*RipCatch v2.0 detecting rip currents in real-time with bounding boxes and confidence scores*
+
 ---
 
 ## 🆕 What's New in v2.0
@@ -87,16 +91,6 @@ Rip currents are responsible for approximately 100 deaths annually in the United
 - ✅ **Better Generalization**: Lower overfitting through stronger regularization
 
 ---
-
-## 🎬 Demo
-
-### 🎥 RipCatch v2.0 in Action
-
-![RipCatch v2.0 Demo](Demo.gif)
-
-*RipCatch v2.0 detecting rip currents in real-time with bounding boxes and confidence scores*
-
-> **Note**: Convert your `Demo.mp4` to `Demo.gif` using FFmpeg or an online tool (see instructions below)
 
 ### Static Detection Results
 
