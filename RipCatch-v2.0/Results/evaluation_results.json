@@ -1,0 +1,18 @@
+{
+  "model_path": "models\\production_training\\advanced_run_v2\\weights\\best.pt",
+  "validation_metrics": {
+    "map50": 0.8863984327841845,
+    "map50_95": 0.6145030493384505,
+    "precision": 0.8903338416254765,
+    "recall": 0.8950819672131147,
+    "f1_score": 0.8927015908489541
+  },
+  "benchmark_comparison": {
+    "roboflow_benchmark": 92.8,
+    "our_model": 88.63984327841845,
+    "difference": -4.160156721581554,
+    "beat_benchmark": false
+  },
+  "dataset": "a:\\5_projects\\rip_current_project\\rip_dataset\\data.yaml",
+  "image_count": 16907
+}

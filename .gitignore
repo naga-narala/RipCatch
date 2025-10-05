@@ -47,19 +47,29 @@ models/production_training/**/weights/*.pt
 
 # Model outputs
 **/runs/
+# Allow RipCatch Results folders (for demo/documentation)
 **/results/
+!RipCatch-v*/Results/
 **/predictions/
 
 # -----------------------------------------------------------------------------
 # Video and Large Media Files
 # -----------------------------------------------------------------------------
-*.mp4
+# Block large video files by default
 *.avi
 *.mov
 *.mkv
 *.wmv
 *.flv
-# Keep sample videos for documentation if small
+
+# Block MP4 files (but allow specific exceptions below)
+*.mp4
+
+# Allow demo and test videos (small, for documentation)
+!Demo.mp4
+!Demo.gif
+!Testing/videos/*.mp4
+!RipCatch-v*/Results/*.mp4
 
 # Large images
 **/output_videos/
@@ -241,12 +251,13 @@ site/
 # -----------------------------------------------------------------------------
 # Project-Specific
 # -----------------------------------------------------------------------------
-# Training outputs (keep structure, ignore large files)
-RipCatch-v*/Results/*.mp4
-RipCatch-v*/Results/*.png
-RipCatch-v*/Results/*.jpg
+# Training outputs - Keep demo/documentation files
+# (Exceptions defined in Video/Media section above)
+# RipCatch-v*/Results/*.mp4 - ALLOW for demo
+# RipCatch-v*/Results/*.png - ALLOW for demo
+# RipCatch-v*/Results/*.jpg - ALLOW for demo
 
-# Temporary test outputs
+# Temporary test outputs (not for documentation)
 Testing/output/
 Testing/results/
 
@@ -299,9 +310,14 @@ docker-compose.override.yml
 !QUICK_START.md
 !FOLDER_STRUCTURE.md
 
-# Keep sample/demo files (small sizes only)
-!Testing/beach/test_1.jpg
-!Testing/Mixed/RIP1.webp
+# Keep demo and testing files
+!Demo.gif
+!Demo.mp4
+!Testing/beach/**
+!Testing/Mixed/**
+!Testing/videos/**
+!Testing/real_time/**
+!RipCatch-v2.0/Results/**
 
 # Keep configuration templates
 !config_template.yaml
