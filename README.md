@@ -849,16 +849,6 @@ model.export(format='tflite', int8=True)
 model.export(format='torchscript')
 ```
 
-### Deployment Options
-
-| Platform | Format | Performance | Guide |
-|----------|--------|-------------|-------|
-| **Cloud (AWS/Azure)** | ONNX | ⚡ Fast | [Deploy Guide](#) |
-| **Edge (Jetson)** | TensorRT | 🚀 Fastest | [Jetson Guide](#) |
-| **Mobile (iOS/Android)** | TFLite | 🏃 Good | [Mobile Guide](#) |
-| **Web Browser** | ONNX.js | 🐌 Moderate | [Web Guide](#) |
-| **Raspberry Pi** | TFLite | 🐌 Slow | [RPi Guide](#) |
-
 ### API Integration (Example)
 
 ```python
@@ -1037,9 +1027,6 @@ ffmpeg -i Demo.mp4 -vf "fps=15,scale=800:-1:flags=lanczos" Demo.gif
 ffmpeg -i Demo.mp4 -vf "fps=10,scale=640:-1:flags=lanczos" -loop 0 Demo.gif
 ```
 
-### Online Tools (No Installation)
-- **ezgif.com**: https://ezgif.com/video-to-gif
-- **Cloudconvert**: https://cloudconvert.com/mp4-to-gif
 
 ### Tips for Best Quality
 - Keep FPS between 10-15 for smooth playback
@@ -1057,7 +1044,7 @@ ffmpeg -i Demo.mp4 -vf "fps=10,scale=640:-1:flags=lanczos" -loop 0 Demo.gif
 
 <div align="center">
 
-**Made with ❤️ for Beach Safety**
+**Made with ❤️ for Water Safety**
 
 **[⬆ Back to Top](#-ripcatch-v20---advanced-rip-current-detection-system)**
 
@@ -1073,7 +1060,7 @@ ffmpeg -i Demo.mp4 -vf "fps=10,scale=640:-1:flags=lanczos" -loop 0 Demo.gif
 ---
 
 *Last Updated: October 2025*  
-*Repository: [github.com/yourusername/RipCatch](https://github.com/yourusername/RipCatch)*
+*Repository: [github.com/yourusername/RipCatch](https://github.com/naga-narala/RipCatch)*
 
 </div>
 
