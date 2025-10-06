@@ -53,7 +53,8 @@ models/production_training/**/weights/*.pt
 **/predictions/
 
 # -----------------------------------------------------------------------------
-# Video and Large Media Files
+#
+ Video and Large Media Files
 # -----------------------------------------------------------------------------
 # Block large video files by default
 *.avi
