@@ -461,7 +461,7 @@ RipCatch/
 │   ├── models/
 │   │   ├── beach_classifier_best.pt
 │   │   └── rip_detector_best.pt
-│   ├── RipCatch-v1.1.ipynb
+│   ├── RipCatch-v1.1.ipynb  # 📓 Enhanced with detailed descriptions
 │   └── Documentation/
 │       └── LOCAL_SETUP_GUIDE.md
 │
@@ -477,7 +477,7 @@ RipCatch/
 │   │   ├── evaluation_results.json
 │   │   ├── results.csv
 │   │   └── video_test_*_output.mp4
-│   ├── RipCatch-v2.0.ipynb  # Training notebook
+│   ├── RipCatch-v2.0.ipynb  # 📓 Training notebook (fully documented)
 │   └── Documentation/
 │       ├── NOTEBOOK_PLAN.md
 │       └── TRAINING_SUMMARY_REPORT.md
@@ -498,6 +498,8 @@ RipCatch/
 ├── QUICK_START.md           # Fast setup guide
 ├── CONTRIBUTING.md          # Contribution guidelines
 ├── CHANGELOG.md             # Version history
+├── NOTEBOOK_COMPARISON.md   # 📓 Notebook documentation comparison
+├── NOTEBOOK_DESCRIPTIONS_ENHANCEMENT.md  # Enhancement details
 └── FOLDER_STRUCTURE.md      # Detailed structure docs
 ```
 
@@ -651,6 +653,13 @@ jupyter notebook RipCatch-v2.0/RipCatch-v2.0.ipynb
 ```
 
 **Training Time**: ~4-5 hours on RTX 3080 (automatic early stopping around epoch 70)
+
+**📚 Comprehensive Documentation**: Both v1.1 and v2.0 notebooks include detailed markdown descriptions for every cell, explaining:
+- What each cell does step-by-step
+- Expected execution times and outputs
+- Configuration options and best practices
+- Troubleshooting tips for common issues
+- See [NOTEBOOK_COMPARISON.md](NOTEBOOK_COMPARISON.md) for details
 
 ### Using Python Script (Advanced Users)
 
