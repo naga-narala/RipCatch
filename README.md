@@ -297,7 +297,7 @@ cap.release()
 cv2.destroyAllWindows()
 ```
 
-**📖 See [QUICK_START.md](QUICK_START.md) for detailed setup guide and troubleshooting.**
+**📖 See [docs/QUICK_START.md](docs/QUICK_START.md) for detailed setup guide and troubleshooting.**
 
 ---
 
@@ -351,7 +351,7 @@ docker-compose up -d ripcatch-cpu
 .\docker-setup.ps1  # Windows PowerShell
 ```
 
-**📖 See [DOCKER_GUIDE.md](DOCKER_GUIDE.md) for complete Docker and Kubernetes deployment guide.**
+**📖 See [docs/DOCKER_GUIDE.md](docs/DOCKER_GUIDE.md) for complete Docker and Kubernetes deployment guide.**
 
 ---
 
@@ -512,20 +512,42 @@ RipCatch/
 │   ├── real_time/           # Real-time test cases (4 images)
 │   └── videos/              # Test videos (2 videos)
 │
+├── docs/                    # 📚 Documentation
+│   ├── QUICK_START.md       # Fast setup guide
+│   ├── CONTRIBUTING.md      # Contribution guidelines
+│   ├── DOCKER_GUIDE.md      # Docker & Kubernetes guide
+│   ├── ARCHITECTURE.md      # Container architecture
+│   ├── CONTAINERIZATION_SUMMARY.md
+│   ├── FOLDER_STRUCTURE.md  # Detailed structure
+│   └── UPDATE_SUMMARY.md
+│
+├── k8s/                     # ☸️ Kubernetes manifests
+│   ├── deployment.yaml      # CPU deployment
+│   ├── deployment-gpu.yaml  # GPU deployment
+│   └── ingress.yaml         # Ingress configuration
+│
+├── .github/                 # GitHub workflows
+│   └── workflows/
+│       └── docker-publish.yml  # CI/CD pipeline
+│
+├── Dockerfile               # 🐳 Production CPU image
+├── Dockerfile.gpu           # 🐳 Production GPU image
+├── Dockerfile.huggingface   # 🐳 HF Spaces image
+├── docker-compose.yml       # Docker Compose config
+├── .dockerignore            # Docker build exclusions
+├── docker-setup.sh          # Setup script (Linux/Mac)
+├── docker-setup.ps1         # Setup script (Windows)
+│
 ├── requirements.txt         # Python dependencies
 ├── environment.yml          # Conda environment
-├── setup.py                 # Package installation
-├── pyproject.toml           # Modern Python config
+├── app.py                   # Gradio web interface
 ├── .gitignore               # Git ignore rules
 ├── LICENSE                  # MIT License
 ├── README.md                # This file
-├── QUICK_START.md           # Fast setup guide
-├── CONTRIBUTING.md          # Contribution guidelines
-├── CHANGELOG.md             # Version history
-└── FOLDER_STRUCTURE.md      # Detailed structure docs
+└── CHANGELOG.md             # Version history
 ```
 
-**See [FOLDER_STRUCTURE.md](FOLDER_STRUCTURE.md) for detailed explanation.**
+**See [docs/FOLDER_STRUCTURE.md](docs/FOLDER_STRUCTURE.md) for detailed explanation.**
 
 ---
 
@@ -904,7 +926,7 @@ async def detect_rip_current(file: UploadFile):
 
 ## 🤝 Contributing
 
-We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+We welcome contributions! See [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) for guidelines.
 
 ### How to Contribute
 
