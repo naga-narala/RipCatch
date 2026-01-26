@@ -1,0 +1,96 @@
+# ============================================================================
+# RipCatch v2.0 - Kubernetes GPU Deployment
+# Requires GPU-enabled nodes with NVIDIA device plugin
+# ============================================================================
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ripcatch-gpu-deployment
+  namespace: default
+  labels:
+    app: ripcatch-gpu
+    version: v2.0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ripcatch-gpu
+  template:
+    metadata:
+      labels:
+        app: ripcatch-gpu
+        version: v2.0
+    spec:
+      nodeSelector:
+        accelerator: nvidia-gpu
+      containers:
+      - name: ripcatch-gpu
+        image: naga-narala/ripcatch:latest-gpu
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 7860
+          name: http
+          protocol: TCP
+        env:
+        - name: GRADIO_SERVER_NAME
+          value: "0.0.0.0"
+        - name: GRADIO_SERVER_PORT
+          value: "7860"
+        - name: NVIDIA_VISIBLE_DEVICES
+          value: "all"
+        - name: NVIDIA_DRIVER_CAPABILITIES
+          value: "compute,utility"
+        resources:
+          requests:
+            memory: "4Gi"
+            cpu: "2000m"
+            nvidia.com/gpu: 1
+          limits:
+            memory: "8Gi"
+            cpu: "4000m"
+            nvidia.com/gpu: 1
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 7860
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /
+              port: 7860
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        volumeMounts:
+        - name: model-storage
+          mountPath: /app/RipCatch-v2.0/Model/weights
+          readOnly: true
+      volumes:
+      - name: model-storage
+        persistentVolumeClaim:
+          claimName: ripcatch-model-pvc
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ripcatch-gpu-service
+  namespace: default
+  labels:
+    app: ripcatch-gpu
+spec:
+  type: LoadBalancer
+  selector:
+    app: ripcatch-gpu
+  ports:
+  - port: 80
+    targetPort: 7860
+    protocol: TCP
+    name: http
+  sessionAffinity: ClientIP

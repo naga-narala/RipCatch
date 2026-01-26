@@ -4,6 +4,8 @@
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
 [![YOLOv8](https://img.shields.io/badge/YOLOv8-Ultralytics-00FFFF.svg)](https://github.com/ultralytics/ultralytics)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker)](https://hub.docker.com/r/naga-narala/ripcatch)
+[![Hugging Face](https://img.shields.io/badge/🤗%20Hugging%20Face-Demo-yellow)](https://huggingface.co/spaces/sravankumarnnv/ripcatch)
 
 > **AI-powered single-stage rip current detection system to enhance beach safety and save lives.**
 
@@ -322,12 +324,34 @@ conda activate ripcatch
 python -c "import torch; print(f'CUDA available: {torch.cuda.is_available()}')"
 ```
 
-### Method 3: Docker (Coming Soon)
+### Method 3: Docker (Recommended for Production)
 
+**Quick Start:**
 ```bash
-docker pull naga-narala/ripcatch:latest
-docker run -it --gpus all naga-narala/ripcatch:latest
+# CPU version
+docker run -d -p 7860:7860 naga-narala/ripcatch:latest-cpu
+
+# GPU version (requires NVIDIA Docker)
+docker run -d -p 7860:7860 --gpus all naga-narala/ripcatch:latest-gpu
+
+# Access at http://localhost:7860
 ```
+
+**Using Docker Compose:**
+```bash
+# Clone repository
+git clone https://github.com/naga-narala/RipCatch.git
+cd RipCatch
+
+# Start with Docker Compose
+docker-compose up -d ripcatch-cpu
+
+# Or use the automated setup script
+./docker-setup.sh  # Linux/Mac
+.\docker-setup.ps1  # Windows PowerShell
+```
+
+**📖 See [DOCKER_GUIDE.md](DOCKER_GUIDE.md) for complete Docker and Kubernetes deployment guide.**
 
 ---
 

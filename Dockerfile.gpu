@@ -1,0 +1,73 @@
+# ============================================================================
+# RipCatch v2.0 - GPU-Enabled Dockerfile
+# Optimized for NVIDIA GPU acceleration
+# Base: NVIDIA CUDA 11.8 + cuDNN 8
+# ============================================================================
+
+FROM nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu22.04
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    DEBIAN_FRONTEND=noninteractive \
+    CUDA_HOME=/usr/local/cuda \
+    PATH=/usr/local/cuda/bin:$PATH \
+    LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3.10 \
+    python3-pip \
+    python3-dev \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
+    libgomp1 \
+    wget \
+    curl \
+    git \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create symlinks for python
+RUN ln -sf /usr/bin/python3.10 /usr/bin/python && \
+    ln -sf /usr/bin/pip3 /usr/bin/pip
+
+# Upgrade pip
+RUN pip install --upgrade pip setuptools wheel
+
+# Create app directory
+WORKDIR /app
+
+# Copy requirements and install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Install PyTorch with CUDA support (if not in requirements)
+RUN pip install --no-cache-dir torch torchvision --index-url https://download.pytorch.org/whl/cu118
+
+# Copy application files
+COPY app.py .
+COPY RipCatch-v2.0/Model/weights/best.pt RipCatch-v2.0/Model/weights/
+
+# Create directories
+RUN mkdir -p /app/uploads /app/outputs
+
+# Expose Gradio port
+EXPOSE 7860
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:7860/ || exit 1
+
+# Set user for security
+RUN useradd -m -u 1000 ripcatch && \
+    chown -R ripcatch:ripcatch /app
+USER ripcatch
+
+# Run the application
+CMD ["python", "app.py"]

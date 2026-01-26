@@ -1,0 +1,102 @@
+# ============================================================================
+# RipCatch v2.0 - Kubernetes Deployment
+# Production-grade deployment configuration
+# ============================================================================
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ripcatch-deployment
+  namespace: default
+  labels:
+    app: ripcatch
+    version: v2.0
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ripcatch
+  template:
+    metadata:
+      labels:
+        app: ripcatch
+        version: v2.0
+    spec:
+      containers:
+      - name: ripcatch
+        image: naga-narala/ripcatch:latest-cpu
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 7860
+          name: http
+          protocol: TCP
+        env:
+        - name: GRADIO_SERVER_NAME
+          value: "0.0.0.0"
+        - name: GRADIO_SERVER_PORT
+          value: "7860"
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1000m"
+          limits:
+            memory: "4Gi"
+            cpu: "2000m"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 7860
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 7860
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        volumeMounts:
+        - name: model-storage
+          mountPath: /app/RipCatch-v2.0/Model/weights
+          readOnly: true
+      volumes:
+      - name: model-storage
+        persistentVolumeClaim:
+          claimName: ripcatch-model-pvc
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ripcatch-service
+  namespace: default
+  labels:
+    app: ripcatch
+spec:
+  type: LoadBalancer
+  selector:
+    app: ripcatch
+  ports:
+  - port: 80
+    targetPort: 7860
+    protocol: TCP
+    name: http
+  sessionAffinity: ClientIP
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ripcatch-model-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: standard
