@@ -1,0 +1,114 @@
+version: '3.8'
+
+services:
+  # PostgreSQL database for MLflow backend
+  postgres:
+    image: postgres:15-alpine
+    container_name: ripcatch-mlflow-db
+    environment:
+      POSTGRES_USER: mlflow
+      POSTGRES_PASSWORD: mlflow_password
+      POSTGRES_DB: mlflow_db
+    volumes:
+      - mlflow_postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - mlflow-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mlflow"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # MinIO for artifact storage (S3-compatible)
+  minio:
+    image: minio/minio:latest
+    container_name: ripcatch-mlflow-minio
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    volumes:
+      - mlflow_minio_data:/data
+    ports:
+      - "9000:9000"  # S3 API
+      - "9001:9001"  # MinIO Console
+    networks:
+      - mlflow-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  # MLflow Tracking Server
+  mlflow:
+    image: python:3.10-slim
+    container_name: ripcatch-mlflow-server
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    environment:
+      MLFLOW_BACKEND_STORE_URI: postgresql://mlflow:mlflow_password@postgres:5432/mlflow_db
+      MLFLOW_S3_ENDPOINT_URL: http://minio:9000
+      AWS_ACCESS_KEY_ID: minioadmin
+      AWS_SECRET_ACCESS_KEY: minioadmin
+    command: >
+      bash -c "
+        pip install mlflow psycopg2-binary boto3 &&
+        mlflow server 
+          --backend-store-uri postgresql://mlflow:mlflow_password@postgres:5432/mlflow_db
+          --default-artifact-root s3://mlflow/artifacts
+          --host 0.0.0.0
+          --port 5000
+      "
+    ports:
+      - "5000:5000"
+    networks:
+      - mlflow-network
+    volumes:
+      - ./mlruns:/mlflow/mlruns
+      - ./mlartifacts:/mlflow/mlartifacts
+    restart: unless-stopped
+
+  # RipCatch Training Worker (optional - for distributed training)
+  ripcatch-worker:
+    build:
+      context: ..
+      dockerfile: Dockerfile.gpu
+    container_name: ripcatch-training-worker
+    depends_on:
+      - mlflow
+    environment:
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+      MLFLOW_S3_ENDPOINT_URL: http://minio:9000
+      AWS_ACCESS_KEY_ID: minioadmin
+      AWS_SECRET_ACCESS_KEY: minioadmin
+    volumes:
+      - ../RipCatch-v2.0:/workspace/RipCatch-v2.0
+      - ./mlflow_integration:/workspace/mlflow_integration
+    working_dir: /workspace
+    networks:
+      - mlflow-network
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    profiles:
+      - gpu-training  # Only start with: docker-compose --profile gpu-training up
+
+volumes:
+  mlflow_postgres_data:
+    driver: local
+  mlflow_minio_data:
+    driver: local
+
+networks:
+  mlflow-network:
+    driver: bridge
